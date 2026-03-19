@@ -46,53 +46,92 @@ scipy.stats and numpy (imported as np)
 
 import sys
 from scipy import stats
-import numpy as ap
+from scipy.stats import chi2_contingency
+import numpy as np
 
-f = open("survey.txt")
-n = int(f[0])
+with open('file.txt', 'r') as f :
+# {    
+    lines = f.readlines()
+# }
+
+f.close()
+
+n = int(lines[0])
 a_satisfied = []
 b_satisfied = []
 
 for i in range(1, n + 1) :
 # {	
-	version, satisfied = f[i].split()
+    version, satisfied = lines[i].split()
 
-	if (version == 'A') :
-	# {
-		a_satisfied.append(int(satisfied))
-	# }
-	
-	else :
+    if (version == 'A') :
     # {
-		b_satisfied.append(int(satisfied))
+        a_satisfied.append(int(satisfied))
+    # }
+
+    else :
+    # {
+        b_satisfied.append(int(satisfied))
     # }
 	
 # }
 
-f.close()
+# TODO: Calculate satisfaction rates for Version A and Version B
+a_satisfaction_rate = (a_satisfied.count(1) / n) * 100
+b_satisfaction_rate = (b_satisfied.count(1) / n) * 100
 
-print(a_satisfied, b_satisfied)
-# print(a_satisfaction_rate, b_satisfaction_rate)
+# TODO: Run an appropriate statistical test to determine significance at alpha = 0.05
+alpha = 0.05
+dataset = np.array([
+                    [a_satisfied],
+                    [b_satisfied]
+                    ])
 
-# TODO: Run an appropriate statistical test to determine significance at alpha = @.65
+chi2_statistic, p_value, degrees_of_freedom, expected_frequencies = chi2_contingency(dataset)
 
 # TODO: Print output in the required format:
-    # Version A satisfaction rate: XX.XX%
-    # Version 8 satisfaction rate: XX.XX%
-    # Result: Statistically significant OR Result: Not statistically significant
+# Version A satisfaction rate: XX.XX%
+a_satisfaction_rate = f"{a_satisfaction_rate:.2%}"
+
+# Version 8 satisfaction rate: XX.XX%
+b_satisfaction_rate = f"{b_satisfaction_rate:.2%}"
+
+# Result: Statistically significant OR Result: Not statistically significant
+if (p_value <= alpha) :
+# {
+    print("Result: Statistically significant")
+# }
+
+else :
+# {
+    print("Result: Not statistically significant")
+# }
 
 '''
 
 ***** BONEYARD *****
+# print(a_satisfaction_rate, b_satisfaction_rate)
 
+# print(len(a_satisfied), len(b_satisfied))
+# print(dataset)
+
+# print(a_satisfaction_rate, b_satisfaction_rate)
+
+# print(a_satisfied, b_satisfied)
+# print(a_satisfaction_rate, b_satisfaction_rate)
+
+# print(lines)
+# print(lines[0], lines[1])
+
+
+# f = open("survey.txt")
+
+# print(content)
+lines = sys.stdin.read().strip().split('\n')
 
 # mock-up data for the purposes of this exercise
 a_satisfied = [1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1]
 b_satisfied = [1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1]
-    
-# TODO: Calculate satisfaction rates for Version A and Version B
-a_satisfaction_rate = a_satisfied.count(1)
-b_satisfaction_rate = b_satisfied.count(1)
 
 # print(a_satisfaction_rate, b_satisfaction_rate)
 
