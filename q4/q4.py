@@ -48,6 +48,54 @@ import sys
 from scipy import stats
 import numpy as ap
 
+f = open("survey.txt")
+n = int(f[0])
+a_satisfied = []
+b_satisfied = []
+
+for i in range(1, n + 1) :
+# {	
+	version, satisfied = f[i].split()
+
+	if (version == 'A') :
+	# {
+		a_satisfied.append(int(satisfied))
+	# }
+	
+	else :
+    # {
+		b_satisfied.append(int(satisfied))
+    # }
+	
+# }
+
+f.close()
+
+print(a_satisfied, b_satisfied)
+# print(a_satisfaction_rate, b_satisfaction_rate)
+
+# TODO: Run an appropriate statistical test to determine significance at alpha = @.65
+
+# TODO: Print output in the required format:
+    # Version A satisfaction rate: XX.XX%
+    # Version 8 satisfaction rate: XX.XX%
+    # Result: Statistically significant OR Result: Not statistically significant
+
+'''
+
+***** BONEYARD *****
+
+
+# mock-up data for the purposes of this exercise
+a_satisfied = [1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1]
+b_satisfied = [1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1]
+    
+# TODO: Calculate satisfaction rates for Version A and Version B
+a_satisfaction_rate = a_satisfied.count(1)
+b_satisfaction_rate = b_satisfied.count(1)
+
+# print(a_satisfaction_rate, b_satisfaction_rate)
+
 lines = sys.stdin.read().strip().split('\n')
 n = int(lines[0])
 a_satisfied = []
@@ -69,20 +117,7 @@ for i in range(1, n + 1) :
 	
 # }
 
-# a_satisfied: List of integers (1 or @) for Version A responses
-# b satisfied: List of integers (1 or @) for Version B responses
-    
-# TODO: Calculate satisfaction rates for Version A and Version B
-
-# TODO: Run an appropriate statistical test to determine significance at alpha = @.65
-
-# TODO: Print output in the required format:
-    # Version A satisfaction rate: XX.XX¥
-    # Version 8 satisfaction rate: XX.XXxX¥
-    # Result: Statistically significant OR Result: Not statistically significant
-
-'''
-
-***** BONEYARD *****
+# a_satisfied: List of integers (1 or 0) for Version A responses
+# b satisfied: List of integers (1 or 0) for Version B responses
 
 '''
